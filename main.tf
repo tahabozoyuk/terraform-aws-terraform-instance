@@ -3,7 +3,7 @@ resource "aws_instance" "ec2-terraform" {
   instance_type = var.instance_type
   key_name = var.key_name
   vpc_security_group_ids = [aws_security_group.tf-sec-gr.id]
-  user_data = "${abspath(path.module)}/userdata.sh"
+  user_data = templatefile("${abspath(path.module)}/userdata.sh", {myserver = var.server-name})
 }
 
 resource "aws_security_group" "tf-sec-gr" {
